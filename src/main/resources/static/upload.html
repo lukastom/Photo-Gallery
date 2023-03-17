@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Photo Upload</title>
+</head>
+<body>
+
+
+<h2>Photo Upload</h2>
+
+<input id="file-upload" type="file" name="file-upload"/>
+<button id="upload-button" onclick="uploadFile()"> Upload</button>
+
+<script>
+    /* • async: function will return a promise (object representing future value or outcome)
+       • await: waits for the promise
+       • then...: this part extracts the text from the response of the fetch() function, and display it in an alert box.
+     */
+    async function uploadFile() {
+        let formData = new FormData();
+        formData.append("data", document.getElementById("file-upload").files[0]);
+        await fetch('http://localhost:8080/photoz', {
+            method: "POST",
+            body: formData
+        }).then(result => result.text())
+            .then(text => alert(text));
+    }
+
+</script>
+</body>
+</html>
